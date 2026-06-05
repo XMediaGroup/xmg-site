@@ -293,11 +293,14 @@
             nav { padding: 20px 24px; } nav.scrolled { padding: 14px 24px; } .nav-links { display: none; }
             .hero { padding: 120px 24px 80px; }
             .sc, .next-sc, .results-sc, .stmt, .cta-sc { padding: 88px 24px; }
+            /* Mobile: no scroll-pinning — show all four cards stacked instead */
             #flywheel { height: auto; }
-            .fw-sticky { position: relative; height: auto; min-height: 100vh; }
-            .fw-inner { padding: 100px 24px 40px; }
-            .fw-stage { min-height: 320px; }
-            .fw-card { padding: 32px 28px; }
+            .fw-sticky { position: relative; height: auto; min-height: 0; }
+            .fw-inner { padding: 100px 24px 64px; max-width: 540px; height: auto; }
+            .fw-stage { perspective: none; flex: none; min-height: 0; display: flex; flex-direction: column; gap: 18px; }
+            .fw-card { position: relative; inset: auto; transform: none !important; opacity: 1 !important; padding: 32px 28px; }
+            .fw-num { font-size: 54px; }
+            .fw-dots { display: none; }
             .results-grid { grid-template-columns: 1fr; }
             .steps-col { max-width: 100%; }
             footer { flex-direction: column; text-align: center; gap: 20px; padding: 40px 24px; }
@@ -600,15 +603,20 @@ revEls.forEach(el => revIO.observe(el));
     let currentIdx = 0;
     let animating  = false;
 
+    /* Mobile: cards are stacked statically via CSS — skip the flip machinery */
+    const fwMobile = window.matchMedia('(max-width: 900px)').matches;
+
     /* ── Init: disable transitions, set positions, then re-enable ── */
-    cards.forEach((c, i) => {
-        c.style.transition = 'none';
-        c.style.transform  = i === 0 ? 'rotateX(0deg)'  : 'rotateX(90deg)';
-        c.style.opacity    = i === 0 ? '1'               : '0';
-    });
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-        cards.forEach(c => { c.style.transition = ''; });
-    }));
+    if (!fwMobile) {
+        cards.forEach((c, i) => {
+            c.style.transition = 'none';
+            c.style.transform  = i === 0 ? 'rotateX(0deg)'  : 'rotateX(90deg)';
+            c.style.opacity    = i === 0 ? '1'               : '0';
+        });
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+            cards.forEach(c => { c.style.transition = ''; });
+        }));
+    }
 
     /* Scroll progress within the section (0–1) */
     function getProgress() {
@@ -649,6 +657,7 @@ revEls.forEach(el => revIO.observe(el));
     window.addEventListener('scroll', () => {
         const p = getProgress();
         dnaPhase = p * Math.PI * 5;
+        if (fwMobile) return; // no card flipping on mobile
 
         let target = 0;
         for (let i = THRESH.length - 1; i >= 0; i--) {
