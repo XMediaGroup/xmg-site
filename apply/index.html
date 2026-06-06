@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<meta name="description" content="Apply to become a Creative Partner with X Media Group.">
+<title>Apply | X Media Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg: #1D1D1D; --dna-bg: #111116;
+    --border: #2e2e2e; --text: #f0ede8;
+    --muted: #7a7a76; --accent: #B1AB94;
+    --sans: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    --serif: 'Cormorant', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    background: var(--dna-bg); color: var(--text); font-family: var(--sans);
+    -webkit-font-smoothing: antialiased; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 40px 20px 60px; overflow-x: hidden;
+}
+a { color: inherit; }
+
+/* ambient glow */
+body::before {
+    content: ''; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 900px; height: 900px; pointer-events: none;
+    background: radial-gradient(circle, rgba(177,171,148,0.07) 0%, transparent 65%);
+}
+
+.logo { height: 34px; width: auto; margin-bottom: 14px; }
+.eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 40px; }
+
+/* ── Card ── */
+.card {
+    position: relative; width: 100%; max-width: 620px;
+    background: linear-gradient(155deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 38%, rgba(14,14,22,0.2) 100%);
+    backdrop-filter: blur(14px) saturate(1.3); -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    border: 1px solid rgba(255,255,255,0.12); border-radius: 20px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.09);
+    padding: 44px 48px;
+}
+@media (max-width: 600px) { .card { padding: 34px 26px; } }
+
+/* pin light */
+.pin-trace { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; border-radius: inherit; }
+.pin-trace rect {
+    x: 0.75px; y: 0.75px; width: calc(100% - 1.5px); height: calc(100% - 1.5px);
+    fill: none; stroke-width: 1.5; stroke-linecap: round;
+    animation: traceDash 14s linear infinite;
+}
+.pin-trace .pt-tail { stroke: rgba(177,171,148,0.4); stroke-dasharray: 14 86; animation-delay: -12.74s; }
+.pin-trace .pt-head { stroke: rgba(240,237,232,0.95); stroke-dasharray: 5 95; filter: drop-shadow(0 0 3px rgba(240,237,232,0.7)); }
+@keyframes traceDash { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -100; } }
+
+/* ── Progress ── */
+.progress { display: flex; gap: 8px; margin-bottom: 30px; }
+.pseg { height: 3px; flex: 1; border-radius: 2px; background: rgba(177,171,148,0.18); transition: background 0.4s; }
+.pseg.on { background: var(--accent); }
+
+/* ── Question ── */
+.qnum { font-family: var(--serif); font-size: 44px; font-weight: 600; color: rgba(177,171,148,0.25); line-height: 1; margin-bottom: 14px; }
+.qtitle { font-size: clamp(21px, 3.4vw, 27px); font-weight: 700; letter-spacing: -0.015em; line-height: 1.25; margin-bottom: 8px; }
+.qsub { font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.6; margin-bottom: 26px; }
+
+.opts { display: flex; flex-direction: column; gap: 12px; }
+.opt {
+    text-align: left; font-family: var(--sans); font-size: 15px; color: var(--text);
+    background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 17px 20px; cursor: pointer; line-height: 1.45;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.opt:hover { border-color: var(--accent); background: rgba(177,171,148,0.1); transform: translateY(-1px); }
+
+.backlink { display: inline-block; margin-top: 24px; font-size: 13px; color: var(--muted); background: none; border: none; cursor: pointer; font-family: var(--sans); }
+.backlink:hover { color: var(--text); }
+
+/* ── Step transitions ── */
+.step { animation: stepIn 0.45s cubic-bezier(0.16,1,0.3,1); }
+@keyframes stepIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── End screens ── */
+.end-title { font-size: clamp(24px, 4vw, 32px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+.end-accent { font-family: var(--serif); font-style: italic; font-weight: 600; color: var(--accent); }
+.end-sub { font-size: 15px; font-weight: 300; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
+
+/* ── Form ── */
+.field { margin-bottom: 14px; }
+.field input {
+    width: 100%; font-family: var(--sans); font-size: 15px; color: var(--text);
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px; padding: 15px 18px; outline: none; transition: border-color 0.2s;
+}
+.field input::placeholder { color: var(--muted); }
+.field input:focus { border-color: var(--accent); }
+.btn {
+    display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center;
+    font-family: var(--sans); font-size: 15px; font-weight: 700; background: var(--accent); color: #000;
+    padding: 17px 40px; border-radius: 10px; border: none; cursor: pointer; margin-top: 8px;
+    transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), opacity 0.2s;
+}
+.btn:hover { transform: translateY(-2px); opacity: 0.9; }
+.btn:disabled { opacity: 0.5; cursor: wait; transform: none; }
+.form-err { font-size: 13px; color: #c98a7d; margin-top: 12px; display: none; }
+
+.foot { margin-top: 36px; font-size: 12px; color: #4a4a46; }
+</style>
+</head>
+<body>
+
+<img class="logo" src="../logo.png" alt="X Media Group" onerror="this.style.display='none'">
+<div class="eyebrow">Creative Partners Application</div>
+
+<div class="card">
+    <svg class="pin-trace" aria-hidden="true"><rect class="pt-tail" pathLength="100" rx="20"/><rect class="pt-head" pathLength="100" rx="20"/></svg>
+    <div class="progress" id="progress"></div>
+    <div id="stage"></div>
+</div>
+
+<div class="foot">&copy; 2026 X Media Group Ltd &middot; Worcestershire, UK</div>
+
+<script>
+/* ════════ CONFIG ════════ */
+const CONFIG = {
+    // GHL inbound webhook URL (Workflow → trigger: Inbound Webhook). Leads POST here as JSON.
+    webhookUrl: 'https://services.leadconnectorhq.com/hooks/hYlvqpzwcSjg7ouMJJsr/webhook-trigger/3248db29-baee-49ca-b2f2-af5f2b2ad502',
+    // Optional: send disqualified visitors to another page instead of the in-page screen. Leave '' to keep in-page.
+    disqualifyRedirect: '',
+    // XMG Instagram, used on the disqualify page CTA
+    instagramUrl: 'https://www.instagram.com/maxrollinson/'
+};
+
+/* ════════ QUESTIONS ════════ */
+const QUESTIONS = [
+    { title: 'Which best describes your business?',
+      sub: 'So we know your world before we speak.',
+      opts: [
+        { label: 'Fitness, sport or wellness' },
+        { label: 'Hospitality, lifestyle or leisure' },
+        { label: 'Clinic, aesthetics or professional services' },
+        { label: 'Another established business' },
+        { label: "I'm pre-launch / don't have a business yet", dq: true }
+      ], field: 'industry' },
+    { title: 'What’s the biggest thing you want from your content over the next 12 months?',
+      sub: '',
+      opts: [
+        { label: 'More leads and enquiries coming through social media' },
+        { label: 'Become the go-to brand in my area' },
+        { label: 'Hand content off to experts so I can focus on the business' },
+        { label: "I'm not really focused on growth right now", dq: true }
+      ], field: 'goal' },
+    { title: 'Roughly what’s your current average monthly revenue?',
+      sub: 'This stays private, it just helps us recommend the right plan.',
+      opts: [
+        { label: 'Under £5,000', dq: true },
+        { label: '£5,000 to £10,000' },
+        { label: '£10,000 to £25,000' },
+        { label: '£25,000+' }
+      ], field: 'revenue' },
+    { title: 'Where is your business based?',
+      sub: 'We film with you on location every month.',
+      opts: [
+        { label: 'Worcestershire or the West Midlands' },
+        { label: 'Within about an hour of Worcester' },
+        { label: 'Elsewhere in the UK', dq: true },
+        { label: 'Outside the UK', dq: true }
+      ], field: 'area' },
+    { title: 'If we’re a good fit, when would you look to get started within the Creative Partners programme?',
+      sub: '',
+      opts: [
+        { label: 'Ready to start now' },
+        { label: 'Within the next 1-3 months' },
+        { label: 'I’d need to see results before committing to that investment' },
+        { label: 'That investment isn’t realistic for us right now', dq: true }
+      ], field: 'timing' }
+];
+
+/* ════════ ENGINE ════════ */
+const stage = document.getElementById('stage');
+const progress = document.getElementById('progress');
+const answers = {};
+let email = '';
+const sessionId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(16).slice(2);
+
+/* Step flow: Q1 → email capture → Q2..Q5 → details form */
+const STEPS = [{ type: 'q', q: 0 }, { type: 'email' }];
+for (let i = 1; i < QUESTIONS.length; i++) STEPS.push({ type: 'q', q: i });
+
+STEPS.forEach(() => { const s = document.createElement('span'); s.className = 'pseg'; progress.appendChild(s); });
+const segs = Array.from(progress.children);
+
+function setProgress(n) { segs.forEach((s, i) => s.classList.toggle('on', i < n)); }
+
+/* Live partial capture: once we have an email, every answer syncs to GHL.
+   Same sessionId + email on every send, so GHL upserts one contact. */
+function sendPartial(extra) {
+    if (!email || CONFIG.webhookUrl.indexOf('http') !== 0) return;
+    try {
+        fetch(CONFIG.webhookUrl, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
+            body: JSON.stringify(Object.assign({
+                email: email, sessionId: sessionId, partial: true, qualified: false,
+                source: 'xmg-qualifier-funnel', updatedAt: new Date().toISOString()
+            }, answers, extra || {}))
+        }).catch(() => {});
+    } catch (e) {}
+}
+
+function showStep(i) {
+    if (i >= STEPS.length) return showForm();
+    setProgress(i);
+    STEPS[i].type === 'email' ? showEmail(i) : showQuestion(i, STEPS[i].q);
+}
+
+function showQuestion(stepIdx, qi) {
+    const q = QUESTIONS[qi];
+    stage.innerHTML = `<div class="step">
+        <div class="qnum">0${qi + 1}</div>
+        <div class="qtitle">${q.title}</div>
+        ${q.sub ? `<p class="qsub">${q.sub}</p>` : '<div style="height:18px"></div>'}
+        <div class="opts">${q.opts.map((o, j) => `<button class="opt" data-j="${j}">${o.label}</button>`).join('')}</div>
+        ${stepIdx > 0 ? '<button class="backlink" id="back">&larr; Back</button>' : ''}
+    </div>`;
+    stage.querySelectorAll('.opt').forEach(btn => btn.addEventListener('click', () => {
+        const o = q.opts[+btn.dataset.j];
+        answers[q.field] = o.label;
+        if (o.dq) { sendPartial({ disqualifiedOn: q.field }); return showDisqualified(stepIdx); }
+        sendPartial();
+        showStep(stepIdx + 1);
+    }));
+    const back = stage.querySelector('#back');
+    if (back) back.addEventListener('click', () => showStep(stepIdx - 1));
+}
+
+function showEmail(stepIdx) {
+    stage.innerHTML = `<div class="step">
+        <div class="qtitle">Where should we send your result?</div>
+        <p class="qsub">No spam, just your result and the next steps.</p>
+        <form id="email-form" novalidate>
+            <div class="field"><input name="email" type="email" placeholder="Email address" required autocomplete="email" value="${email}"></div>
+            <button class="btn" type="submit">Continue &rarr;</button>
+        </form>
+        <button class="backlink" id="back">&larr; Back</button>
+    </div>`;
+    stage.querySelector('#back').addEventListener('click', () => showStep(stepIdx - 1));
+    stage.querySelector('#email-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const f = e.target;
+        if (!f.checkValidity()) { f.reportValidity(); return; }
+        email = f.email.value.trim();
+        sendPartial();
+        showStep(stepIdx + 1);
+    });
+}
+
+function showDisqualified(fromStep) {
+    if (CONFIG.disqualifyRedirect) { window.location.href = CONFIG.disqualifyRedirect; return; }
+    setProgress(0);
+    stage.innerHTML = `<div class="step">
+        <div class="end-title">Thanks for your honesty. <span class="end-accent">Unfortunately, we’re not the right fit just yet.</span></div>
+        <p class="end-sub">Our Creative Partners programme works best for established, growth-focused businesses in our area. That might be you down the line, and we’d love to hear from you when it is.</p>
+        <p class="end-sub">In the meantime, follow along, because everything we make for our clients, we share.</p>
+        <a class="btn" href="${CONFIG.instagramUrl}" style="text-decoration:none">Follow us on Instagram</a>
+        <button class="backlink" id="dq-back">&larr; Clicked that by mistake? Go back and change your answer</button>
+    </div>`;
+    stage.querySelector('#dq-back').addEventListener('click', () => showStep(fromStep));
+}
+
+function showForm() {
+    setProgress(STEPS.length);
+    stage.innerHTML = `<div class="step">
+        <div class="end-title">You’re exactly who we <span class="end-accent">work best with.</span></div>
+        <p class="end-sub">Pop your details in and one of the team will be in touch shortly.</p>
+        <form id="lead-form" novalidate>
+            <div class="field"><input name="name" placeholder="Your name" required autocomplete="name"></div>
+            <div class="field"><input name="business" placeholder="Business name" required autocomplete="organization"></div>
+            <div class="field"><input name="email" type="email" placeholder="Email address" required autocomplete="email" value="${email}"></div>
+            <div class="field"><input name="phone" type="tel" placeholder="Phone number" required autocomplete="tel"></div>
+            <button class="btn" type="submit">Send my application &rarr;</button>
+            <p class="form-err" id="ferr">Something went wrong sending that. Please try again, or email max.rollinson11@gmail.com.</p>
+        </form>
+        <button class="backlink" id="back">&larr; Back</button>
+    </div>`;
+    stage.querySelector('#back').addEventListener('click', () => showStep(STEPS.length - 1));
+    stage.querySelector('#lead-form').addEventListener('submit', async e => {
+        e.preventDefault();
+        const f = e.target;
+        if (!f.checkValidity()) { f.reportValidity(); return; }
+        const btn = f.querySelector('.btn'); btn.disabled = true; btn.textContent = 'Sending…';
+        email = f.email.value.trim();
+        const payload = {
+            name: f.name.value.trim(), business: f.business.value.trim(),
+            email: email, phone: f.phone.value.trim(),
+            ...answers, sessionId: sessionId, source: 'xmg-qualifier-funnel',
+            partial: false, qualified: true,
+            submittedAt: new Date().toISOString()
+        };
+        try {
+            const res = await fetch(CONFIG.webhookUrl, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (!res.ok) throw new Error(res.status);
+            showThanks(payload.name);
+        } catch (err) {
+            btn.disabled = false; btn.innerHTML = 'Send my application &rarr;';
+            stage.querySelector('#ferr').style.display = 'block';
+        }
+    });
+}
+
+function showThanks(name) {
+    stage.innerHTML = `<div class="step">
+        <div class="end-title">Thanks${name ? ', ' + name.split(' ')[0] : ''}. <span class="end-accent">Application received.</span></div>
+        <p class="end-sub">One of the team will be in touch shortly to talk through what a Creative Partnership would look like for your business.</p>
+        <a class="btn" href="https://xmediagroup.co.uk" style="text-decoration:none">Back to the website</a>
+    </div>`;
+}
+
+showStep(0);
+</script>
+</body>
+</html>
