@@ -239,8 +239,8 @@ function showQuestion(stepIdx, qi) {
 
 function showEmail(stepIdx) {
     stage.innerHTML = `<div class="step">
-        <div class="qtitle">Where should we send your result?</div>
-        <p class="qsub">No spam, just your result and the next steps.</p>
+        <div class="qtitle">Before we continue...</div>
+        <p class="qsub">And don't worry, this isn't to spam you with nonsense emails.</p>
         <form id="email-form" novalidate>
             <div class="field"><input name="email" type="email" placeholder="Email address" required autocomplete="email" value="${email}"></div>
             <button class="btn" type="submit">Continue &rarr;</button>
