@@ -30,6 +30,24 @@
         body { background: var(--bg); color: var(--text); font-family: var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
 
+        /* ── CINEMATIC VIDEO IDENT (once per session) ── */
+        #ident {
+            position: fixed; inset: 0; z-index: 10000;
+            background: var(--bg);
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        #ident video { width: 100%; height: 100%; object-fit: cover; display: block; }
+        #ident.fade-out { animation: identFade 0.8s ease-in-out forwards; }
+        @keyframes identFade { to { opacity: 0; visibility: hidden; } }
+
+        /* Hero shown instantly (reduced-motion path; toggled by JS) */
+        body.intro-skip .hero-eyebrow,
+        body.intro-skip .hero-h,
+        body.intro-skip .hero-sub,
+        body.intro-skip .hero-vsl,
+        body.intro-skip .hero-cta { opacity: 1; animation: none; }
+
         /* ── INTRO — dark screen, light sweeps across a frosted-glass logo ── */
         #intro {
             position: fixed; inset: 0; z-index: 9999;
@@ -361,6 +379,11 @@
     <div id="intro-beam"></div>
 </div>
 
+<!-- CINEMATIC VIDEO IDENT (once per session) -->
+<div id="ident" aria-hidden="true">
+    <video id="ident-video" muted autoplay playsinline preload="auto"></video>
+</div>
+
 <!-- FLOATING GLASS ICON FIELD -->
 <div id="glass-field" aria-hidden="true"></div>
 
@@ -648,11 +671,50 @@
     }
 })();
 
-/* ── Intro ── */
+/* ── Cinematic video ident (once per session) ── */
+(function () {
+    const ident = document.getElementById('ident');
+    const cssIntro = document.getElementById('intro');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const played = sessionStorage.getItem('xmgIntroPlayed');
+
+    // Reduced motion: no ident, no light sweep, hero shown immediately
+    if (reduce) {
+        if (ident) ident.remove();
+        if (cssIntro) cssIntro.remove();
+        document.body.classList.add('intro-skip');
+        return;
+    }
+    // Already played this session: skip the video, let the light-sweep intro run
+    if (played) {
+        if (ident) ident.remove();
+        return;
+    }
+    // First load this session: play the video ident, skip the light sweep
+    if (cssIntro) cssIntro.remove();
+    if (!ident) return;
+    const v = document.getElementById('ident-video');
+    const portrait = window.matchMedia('(orientation: portrait)').matches;
+    v.src = portrait ? 'video/xmg-intro-portrait.mp4' : 'video/xmg-intro-landscape.mp4';
+    sessionStorage.setItem('xmgIntroPlayed', '1');
+
+    let done = false;
+    function finish() {
+        if (done) return; done = true;
+        ident.classList.add('fade-out');
+        setTimeout(() => ident.remove(), 850);
+    }
+    v.addEventListener('ended', finish);
+    const p = v.play();
+    if (p && p.catch) p.catch(() => finish());   // autoplay blocked -> skip cleanly
+    setTimeout(finish, 5500);                      // fallback if 'ended' misfires
+})();
+
+/* ── Intro (light-sweep, repeat visits) ── */
 const intro = document.getElementById('intro');
-// Light sweeps 0.32–1.87s, frosted logo lingers low-key then fades out by 2.3s.
+// Light sweeps 0.32-1.87s, frosted logo lingers low-key then fades out by 2.3s.
 // Then the dark overlay itself fades and the site appears.
-setTimeout(() => {
+if (intro) setTimeout(() => {
     intro.classList.add('hide'); // 0.85s fade
     setTimeout(() => intro.remove(), 900);
 }, 2350);
