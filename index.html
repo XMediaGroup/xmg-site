@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/logo.png">
     <meta name="description" content="X Media Group, Creative Agency, Worcestershire, UK. Content that converts.">
     <title>X Media Group | Creative Agency</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -97,6 +96,26 @@
             92%  { opacity: 1; }
             100% { opacity: 0; background-position: 0% 0; }
         }
+
+        /* ── FLOATING GLASS ICON FIELD ── */
+        #glass-field {
+            position: fixed; inset: 0; z-index: -1;
+            pointer-events: none; overflow: hidden;
+        }
+        .gx { position: absolute; will-change: transform; }
+        .gx img {
+            width: 100%; height: auto; display: block;
+            opacity: var(--gx-op, 0.2);
+            filter: blur(var(--gx-blur, 0px)) drop-shadow(0 10px 30px rgba(0,0,0,0.4));
+            animation: gxFloat var(--gx-float, 14s) ease-in-out infinite;
+            animation-delay: var(--gx-delay, 0s);
+        }
+        @keyframes gxFloat {
+            0%   { transform: translateY(0)     rotate(var(--gx-rot, 0deg)); }
+            50%  { transform: translateY(-26px) rotate(calc(var(--gx-rot, 0deg) + 6deg)); }
+            100% { transform: translateY(0)     rotate(var(--gx-rot, 0deg)); }
+        }
+        @media (prefers-reduced-motion: reduce) { .gx img { animation: none; } }
 
         /* ── CURSOR ── */
         #cursor-glow {
@@ -258,8 +277,14 @@
         /* ── RESULTS ── */
         .results-sc { padding: 128px 64px; text-align: center; }
         .results-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; text-align: left; margin-top: 64px; }
-        .rc { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 36px 36px 28px; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.3s; }
-        .rc:hover { transform: translateY(-5px); border-color: var(--border2); }
+        .rc {
+            background: linear-gradient(155deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 38%, rgba(14,14,22,0.18) 100%);
+            backdrop-filter: blur(14px) saturate(1.3); -webkit-backdrop-filter: blur(14px) saturate(1.3);
+            border: 1px solid rgba(255,255,255,0.12); border-radius: var(--r); padding: 36px 36px 28px;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.09);
+            transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.3s;
+        }
+        .rc:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.22); }
         .rc.placeholder { border-style: dashed; opacity: 0.45; }
         .rc-client { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
         .rc-niche  { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2); margin-bottom: 20px; }
@@ -335,6 +360,9 @@
     <!-- light beam sweeping the whole screen -->
     <div id="intro-beam"></div>
 </div>
+
+<!-- FLOATING GLASS ICON FIELD -->
+<div id="glass-field" aria-hidden="true"></div>
 
 <!-- CURSOR -->
 <div id="cursor-glow"></div>
@@ -546,7 +574,80 @@
     <div class="fcopy">&copy; 2026 X Media Group Ltd &middot; Worcestershire, UK</div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lenis/1.1.13/lenis.min.js"></script>
 <script>
+/* ── Smooth scroll (Lenis) ── */
+(function () {
+    if (typeof Lenis === 'undefined') return;          // graceful fallback to native scroll
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const lenis = new Lenis({
+        duration: 1.15,
+        easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),  // smooth ease-out
+        smoothWheel: true,
+        touchMultiplier: 1.6
+    });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    window.lenis = lenis;                                // exposed for parallax use later
+})();
+
+/* ── Floating glass icon field (2.5D scroll parallax) ── */
+(function () {
+    const field = document.getElementById('glass-field');
+    if (!field) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // each icon: left%, top(vh from page start), width px, opacity, blur, parallax speed, rotation, float duration
+    const ICONS = [
+        { x: 8,  y: 12,  w: 230, op: 0.30, blur: 0,   spd: -0.16, rot: -14, dur: 15 },
+        { x: 82, y: 38,  w: 150, op: 0.20, blur: 1.5, spd:  0.10, rot:  10, dur: 18 },
+        { x: 68, y: 78,  w: 280, op: 0.26, blur: 0,   spd: -0.22, rot:   8, dur: 17 },
+        { x: 14, y: 120, w: 120, op: 0.16, blur: 2.5, spd:  0.14, rot: -8,  dur: 20 },
+        { x: 88, y: 158, w: 200, op: 0.24, blur: 0.5, spd: -0.12, rot:  16, dur: 16 },
+        { x: 30, y: 196, w: 160, op: 0.20, blur: 1.5, spd:  0.18, rot: -12, dur: 19 },
+        { x: 60, y: 240, w: 240, op: 0.27, blur: 0,   spd: -0.18, rot:   6, dur: 15 }
+    ];
+    const vh = () => window.innerHeight / 100;
+    // Mobile: fewer icons, scaled down, gentler opacity so text stays crisp
+    const mob = window.innerWidth < 700;
+    const scale = mob ? 0.5 : 1;
+    const list = mob ? ICONS.filter((_, i) => i % 2 === 0) : ICONS;  // ~4 icons on mobile
+    const items = list.map(c => {
+        const el = document.createElement('div');
+        el.className = 'gx';
+        el.style.left = c.x + '%';
+        el.style.top = (c.y * vh()) + 'px';
+        el.style.width = Math.round(c.w * scale) + 'px';
+        el.dataset.spd = c.spd;
+        const img = document.createElement('img');
+        img.src = 'glass-x-cutout.png';
+        img.alt = '';
+        img.loading = 'lazy';
+        img.style.setProperty('--gx-op', mob ? Math.min(c.op, 0.18) : c.op);
+        img.style.setProperty('--gx-blur', c.blur + 'px');
+        img.style.setProperty('--gx-rot', c.rot + 'deg');
+        img.style.setProperty('--gx-float', c.dur + 's');
+        img.style.setProperty('--gx-delay', (-Math.random() * c.dur) + 's');
+        el.appendChild(img);
+        field.appendChild(el);
+        return { el, spd: c.spd };
+    });
+    function apply(scroll) {
+        for (const it of items) it.el.style.transform = 'translate3d(0,' + (scroll * it.spd) + 'px,0)';
+    }
+    if (reduce) { apply(0); return; }
+    if (window.lenis) {
+        window.lenis.on('scroll', e => apply(e.scroll));
+        apply(window.scrollY || 0);
+    } else {
+        let y = 0, ticking = false;
+        window.addEventListener('scroll', () => {
+            y = window.scrollY;
+            if (!ticking) { requestAnimationFrame(() => { apply(y); ticking = false; }); ticking = true; }
+        }, { passive: true });
+        apply(0);
+    }
+})();
+
 /* ── Intro ── */
 const intro = document.getElementById('intro');
 // Light sweeps 0.32–1.87s, frosted logo lingers low-key then fades out by 2.3s.
