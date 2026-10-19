@@ -294,7 +294,12 @@
 
         /* ── RESULTS ── */
         .results-sc { padding: 128px 64px; text-align: center; }
-        .results-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; text-align: left; margin-top: 64px; }
+        .results-grid { display: grid; grid-template-columns: 1fr 1.18fr 1fr; align-items: center; gap: 20px; text-align: left; margin-top: 64px; }
+        .rc-shot { width: 100%; height: auto; display: block; border-radius: 12px; margin-bottom: 22px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 22px rgba(0,0,0,0.35); }
+        .rc.feature { padding: 44px 40px 34px; border-color: rgba(177,171,148,0.4); box-shadow: 0 32px 74px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12); }
+        .rc.feature .rc-quote { font-size: 21px; }
+        .rc.feature .mv { font-size: 26px; }
+        .rc.feature .rc-metrics { gap: 20px; }
         .rc {
             background: linear-gradient(155deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 38%, rgba(14,14,22,0.18) 100%);
             backdrop-filter: blur(14px) saturate(1.3); -webkit-backdrop-filter: blur(14px) saturate(1.3);
@@ -496,49 +501,53 @@
     <div class="t1 reveal d1">Real businesses. Real results.</div>
     <div class="results-grid">
 
-        <!-- Kath Walker — Harkin Walker -->
+        <!-- Millhouse Clinics (left, smaller) -->
         <div class="rc reveal">
-            <div class="rc-client">Harkin Walker</div>
-            <div class="rc-niche">Interior Design</div>
-            <p class="rc-quote">"We have over doubled our followers on Instagram. Coventry Football Club came off the back of the ads, which is a really prestigious project that we are now working on."</p>
+            <img class="rc-shot" src="millhouse-shot.png" alt="Millhouse Clinics on Instagram" loading="lazy">
+            <div class="rc-client">Millhouse Clinics</div>
+            <div class="rc-niche">Aesthetics &amp; Laser</div>
+            <p class="rc-quote">"14 consultations booked in the first two weeks, from under £300 in ad spend. Close to £6,000 in treatments."</p>
             <div class="rc-footer">
                 <div class="rc-metrics">
-                    <div><div class="mv">2x</div><div class="ml">Instagram followers</div></div>
-                    <div><div class="mv">9 mo</div><div class="ml">Working together</div></div>
+                    <div><div class="mv">14</div><div class="ml">Consultations in 2 weeks</div></div>
+                    <div><div class="mv">~20x</div><div class="ml">Return on ad spend</div></div>
                 </div>
-                <a href="https://www.instagram.com/harkinwalker/" target="_blank" rel="noopener" class="ig" title="Harkin Walker on Instagram">
+                <a href="https://www.instagram.com/millhouseclinics/" target="_blank" rel="noopener" class="ig" title="Millhouse Clinics on Instagram">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
                 </a>
             </div>
         </div>
 
-        <!-- Todd Bullions — TIG Growth -->
-        <div class="rc reveal d1">
-            <div class="rc-client">TIG Growth</div>
-            <div class="rc-niche">Business Coaching</div>
-            <p class="rc-quote">"You are kind of that voice in the background. You have got the content covered. It has allowed me to focus on my business knowing that is being taken care of."</p>
+        <!-- L O'Reilly Carpentry & Joinery (centre, featured) -->
+        <div class="rc feature reveal d1">
+            <img class="rc-shot" src="oreilly-shot.png" alt="L O'Reilly Carpentry &amp; Joinery on Instagram" loading="lazy">
+            <div class="rc-client">L O'Reilly Carpentry &amp; Joinery</div>
+            <div class="rc-niche">West Midlands</div>
+            <p class="rc-quote">"£850,000 of work quoted off the back of less than £200 in ad spend."</p>
             <div class="rc-footer">
                 <div class="rc-metrics">
-                    <div><div class="mv">100%</div><div class="ml">Would recommend</div></div>
-                    <div><div class="mv">4 mo</div><div class="ml">Working together</div></div>
+                    <div><div class="mv">£850k</div><div class="ml">Work quoted</div></div>
+                    <div><div class="mv">&lt;£200</div><div class="ml">Ad spend</div></div>
+                    <div><div class="mv">4,250x</div><div class="ml">Potential return</div></div>
                 </div>
-                <a href="https://www.instagram.com/thisisgrowth_/" target="_blank" rel="noopener" class="ig" title="TIG Growth on Instagram">
+                <a href="https://www.instagram.com/loreillycarpentry/" target="_blank" rel="noopener" class="ig" title="L O'Reilly Carpentry &amp; Joinery on Instagram">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
                 </a>
             </div>
         </div>
 
-        <!-- Dev — Dream Smiles Studio -->
+        <!-- Padelheim (right, smaller) -->
         <div class="rc reveal d2">
-            <div class="rc-client">Dream Smiles Studio</div>
-            <div class="rc-niche">Dental &amp; Aesthetics</div>
-            <p class="rc-quote">"Every time we have a conversation I get buzzed off it. You are my in-house marketing team but you are not in-house. This is exactly what I wanted."</p>
+            <img class="rc-shot" src="padelheim-shot.png" alt="Padelheim on Instagram" loading="lazy">
+            <div class="rc-client">Padelheim</div>
+            <div class="rc-niche">Padel</div>
+            <p class="rc-quote">"If you had said this is where we would be after three months, I would have ripped your arm off."</p>
             <div class="rc-footer">
                 <div class="rc-metrics">
-                    <div><div class="mv">Active</div><div class="ml">Creative partner</div></div>
-                    <div><div class="mv">Clinic</div><div class="ml">Launch 2026</div></div>
+                    <div><div class="mv">2,978</div><div class="ml">Followers built</div></div>
+                    <div><div class="mv">£352</div><div class="ml">Ad spend</div></div>
                 </div>
-                <a href="https://www.instagram.com/dr.devsmiles/" target="_blank" rel="noopener" class="ig" title="Dream Smiles Studio on Instagram">
+                <a href="https://www.instagram.com/padelheim/" target="_blank" rel="noopener" class="ig" title="Padelheim on Instagram">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
                 </a>
             </div>
