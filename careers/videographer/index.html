@@ -113,8 +113,15 @@ body::before {
 .choice span:hover { border-color: rgba(177,171,148,0.6); }
 .choice input:checked + span { border-color: var(--accent); background: rgba(177,171,148,0.16); color: #fff; }
 .choice input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
-.check { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; line-height: 1.55; color: #d8d5cf; cursor: pointer; }
-.check input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--accent); flex-shrink: 0; }
+.field > label.check, .check { display: flex; margin-bottom: 0; gap: 14px; align-items: flex-start; font-size: 15px; line-height: 1.55; color: #d8d5cf; cursor: pointer; }
+.check { align-items: center; padding: 16px 18px; border-radius: 12px; background: rgba(255,255,255,0.035); border: 1px solid var(--border); transition: border-color 0.2s, background 0.2s; }
+.check:hover { border-color: rgba(177,171,148,0.6); }
+.check input { appearance: none; -webkit-appearance: none; margin: 0; width: 22px; height: 22px; flex-shrink: 0; border-radius: 6px; border: 1.5px solid rgba(177,171,148,0.6); background: rgba(255,255,255,0.04); display: grid; place-content: center; cursor: pointer; transition: all 0.2s; }
+.check input::after { content: ''; width: 6px; height: 11px; border: solid #000; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg) scale(0); margin-top: -3px; transition: transform 0.15s; }
+.check input:checked { background: var(--accent); border-color: var(--accent); }
+.check input:checked::after { transform: rotate(45deg) scale(1); }
+.check input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.check:has(input:checked) { border-color: var(--accent); background: rgba(177,171,148,0.12); }
 
 .btn {
     display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center;
@@ -162,7 +169,8 @@ const STEPS = [
       { id: 'name', label: 'Full name', type: 'text', req: true, ac: 'name' },
       { id: 'email', label: 'Email address', type: 'email', req: true, ac: 'email' },
       { id: 'phone', label: 'Mobile number', type: 'tel', req: true, ac: 'tel' },
-      { id: 'town', label: 'Where are you based? (town)', type: 'text', req: true, ac: 'address-level2', ph: 'e.g. Bromsgrove' }
+      { id: 'town', label: 'Where are you based? (town)', type: 'text', req: true, ac: 'address-level2', ph: 'e.g. Bromsgrove' },
+      { id: 'instagram', label: 'Instagram handle', type: 'text', req: true, ph: '@yourhandle' }
   ]},
   { title: 'A few must-haves.', sub: 'We film on location across the West Midlands every week, so these are non-negotiable.', fields: [
       { id: 'licence_car', label: 'Do you have a full UK driving licence and your own car?', type: 'radio', req: true, gate: 'Yes, both',
@@ -180,9 +188,9 @@ const STEPS = [
       { id: 'notice', label: 'Anything we should know about your notice or availability? (optional)', type: 'text' },
       { id: 'salary', label: 'What are your salary expectations?', type: 'text', req: true, ph: 'e.g. £30,000 per year' }
   ]},
-  { title: 'Your skills so far.', sub: 'Honestly, none of this is essential. We can teach the camera. We cannot teach character.', fields: [
+  { title: 'Your skills so far.', sub: 'Tell us where you are at with filming and editing.', fields: [
       { id: 'filming', label: 'How much filming have you done?', type: 'radio', req: true,
-        opts: ['None yet, but I want to learn', 'Some, for myself or friends', 'Some paid or professional work', 'I film professionally now'] },
+        opts: ['A little, for myself or friends', 'A fair amount, including some paid work', 'I film professionally now'] },
       { id: 'editing', label: 'Which editing software have you used? Tick any that apply.', type: 'multi',
         opts: ['DaVinci Resolve', 'Premiere Pro', 'Final Cut Pro', 'CapCut', 'After Effects', 'None yet'] },
       { id: 'kit', label: 'Do you have your own camera kit?', type: 'radio', req: true,
@@ -216,9 +224,7 @@ function showIntro() {
     progress.hidden = true;
     stage.innerHTML = `<div class="step jd">
       <div class="jd-title">Videographer <span class="accent">and Editor.</span></div>
-      <div class="pills"><span class="pill">Full-time</span><span class="pill">West Midlands</span><span class="pill">Starting January</span><span class="pill">Monday to Friday</span></div>
       <p class="lead">X Media Group makes video content and ads for businesses across the Midlands, from clinics and studios to trades and sports clubs. We are growing, and we are looking for someone to film with our clients, edit what we shoot and help us make work we are proud of.</p>
-      <p class="lead">We hire on character first. If you are genuine, kind, hard-working and people enjoy being around you, we can teach you the rest.</p>
 
       <h3>What you will be doing</h3>
       <ul>
@@ -232,6 +238,7 @@ function showIntro() {
       <h3>Must-haves</h3>
       <ul>
         <li>A full UK driving licence and your own car</li>
+        <li>Filming experience, on any camera</li>
         <li>Based in, or happy to travel across, the West Midlands</li>
         <li>Available full-time, Monday to Friday, with the occasional weekend</li>
         <li>Genuine, kind and easy to get on with</li>
@@ -239,9 +246,8 @@ function showIntro() {
         <li>Open to feedback and keen to keep getting better</li>
       </ul>
 
-      <h3>A big bonus, but we can teach it</h3>
+      <h3>Not necessary, but good to have</h3>
       <ul>
-        <li>Filming experience, on any camera</li>
         <li>Editing experience in DaVinci Resolve, Premiere Pro, CapCut or similar</li>
         <li>Your own camera kit (not essential, we provide kit for the right person)</li>
         <li>An eye for what works on social media</li>
