@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/logo.png">
+<meta name="description" content="Join X Media Group as a full-time Videographer and Editor in the West Midlands.">
+<meta property="og:title" content="Videographer and Editor | X Media Group">
+<meta property="og:description" content="Full-time, West Midlands, starting January. We hire on character first.">
+<title>Videographer and Editor | X Media Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg: #111116; --border: rgba(255,255,255,0.12); --text: #f0ede8;
+    --muted: #8a8a85; --accent: #B1AB94; --err: #c98a7d;
+    --sans: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    --serif: 'Cormorant', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+    background: var(--bg); color: var(--text); font-family: var(--sans);
+    -webkit-font-smoothing: antialiased; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 40px 16px 60px; overflow-x: hidden;
+}
+a { color: var(--accent); }
+body::before {
+    content: ''; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 900px; height: 900px; pointer-events: none; z-index: -2;
+    background: radial-gradient(circle, rgba(177,171,148,0.08) 0%, transparent 65%);
+}
+
+/* floating glass X field */
+#glass-field { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.gx { position: absolute; }
+.gx img {
+    width: 100%; height: auto; display: block; opacity: var(--gx-op, 0.2);
+    filter: blur(var(--gx-blur, 0px)) drop-shadow(0 10px 30px rgba(0,0,0,0.4));
+    animation: gxFloat var(--gx-float, 14s) ease-in-out infinite; animation-delay: var(--gx-delay, 0s);
+}
+@keyframes gxFloat {
+    0% { transform: translateY(0) rotate(var(--gx-rot, 0deg)); }
+    50% { transform: translateY(-26px) rotate(calc(var(--gx-rot, 0deg) + 6deg)); }
+    100% { transform: translateY(0) rotate(var(--gx-rot, 0deg)); }
+}
+@media (prefers-reduced-motion: reduce) { .gx img { animation: none; } }
+
+.logo { height: 34px; width: auto; margin-bottom: 14px; }
+.eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 36px; text-align: center; }
+
+.card {
+    position: relative; width: 100%; max-width: 660px;
+    background: linear-gradient(155deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.018) 38%, rgba(14,14,22,0.35) 100%);
+    backdrop-filter: blur(16px) saturate(1.3); -webkit-backdrop-filter: blur(16px) saturate(1.3);
+    border: 1px solid var(--border); border-radius: 20px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.09);
+    padding: 44px 48px;
+}
+@media (max-width: 600px) { .card { padding: 32px 22px; } }
+.pin-trace { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; border-radius: inherit; }
+.pin-trace rect { x: 0.75px; y: 0.75px; width: calc(100% - 1.5px); height: calc(100% - 1.5px); fill: none; stroke-width: 1.5; stroke-linecap: round; animation: traceDash 16s linear infinite; }
+.pin-trace .pt-tail { stroke: rgba(177,171,148,0.4); stroke-dasharray: 14 86; animation-delay: -14.56s; }
+.pin-trace .pt-head { stroke: rgba(240,237,232,0.95); stroke-dasharray: 5 95; filter: drop-shadow(0 0 3px rgba(240,237,232,0.7)); }
+@keyframes traceDash { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -100; } }
+
+.progress { display: flex; gap: 6px; margin-bottom: 30px; }
+.pseg { height: 3px; flex: 1; border-radius: 2px; background: rgba(177,171,148,0.18); transition: background 0.4s; }
+.pseg.on { background: var(--accent); }
+
+.step { animation: stepIn 0.45s cubic-bezier(0.16,1,0.3,1); }
+@keyframes stepIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+/* job description */
+.jd-title { font-size: clamp(28px, 5vw, 38px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.accent { font-family: var(--serif); font-style: italic; font-weight: 600; color: var(--accent); }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+.pill { font-size: 12px; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--border); background: rgba(255,255,255,0.04); color: var(--text); }
+.lead { font-size: 16px; font-weight: 300; line-height: 1.7; color: #d8d5cf; margin-bottom: 14px; }
+.jd h3 { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin: 30px 0 12px; font-weight: 600; }
+.jd ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.jd li { position: relative; padding-left: 22px; font-size: 15px; line-height: 1.55; color: #d8d5cf; font-weight: 300; }
+.jd li::before { content: ''; position: absolute; left: 2px; top: 9px; width: 7px; height: 7px; border-radius: 2px; background: var(--accent); transform: rotate(45deg); opacity: 0.8; }
+.jd ul.no li::before { background: none; border: 1px solid var(--muted); }
+.note { margin-top: 26px; padding: 16px 18px; border-radius: 12px; background: rgba(177,171,148,0.08); border: 1px solid rgba(177,171,148,0.22); font-size: 14px; line-height: 1.6; color: #d8d5cf; font-weight: 300; }
+
+/* questions */
+.qnum { font-family: var(--serif); font-size: 44px; font-weight: 600; color: rgba(177,171,148,0.28); line-height: 1; margin-bottom: 14px; }
+.qtitle { font-size: clamp(21px, 3.4vw, 26px); font-weight: 700; letter-spacing: -0.015em; line-height: 1.25; margin-bottom: 8px; }
+.qsub { font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
+.field { margin-bottom: 16px; }
+.field > label { display: block; font-size: 13px; color: #cfccc5; margin-bottom: 8px; }
+.field input[type=text], .field input[type=email], .field input[type=tel], .field input[type=url], .field textarea, .field select {
+    width: 100%; font-family: var(--sans); font-size: 16px; color: var(--text);
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px; outline: none; transition: border-color 0.2s;
+}
+.field textarea { min-height: 150px; resize: vertical; line-height: 1.55; }
+.field select { appearance: none; -webkit-appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--accent) 50%), linear-gradient(135deg, var(--accent) 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 15px) 50%; background-size: 5px 5px; background-repeat: no-repeat; }
+.field select option { background: #1b1b20; }
+.field ::placeholder { color: #6a6a66; }
+.field input:focus, .field textarea:focus, .field select:focus { border-color: var(--accent); }
+.count { font-size: 12px; color: var(--muted); text-align: right; margin-top: 6px; }
+.choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.choice { position: relative; }
+.choice input { position: absolute; opacity: 0; pointer-events: none; }
+.choice span {
+    display: inline-block; font-size: 14px; padding: 11px 15px; border-radius: 10px; cursor: pointer;
+    background: rgba(255,255,255,0.035); border: 1px solid var(--border); transition: all 0.2s; line-height: 1.3;
+}
+.choice span:hover { border-color: rgba(177,171,148,0.6); }
+.choice input:checked + span { border-color: var(--accent); background: rgba(177,171,148,0.16); color: #fff; }
+.choice input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.check { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; line-height: 1.55; color: #d8d5cf; cursor: pointer; }
+.check input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--accent); flex-shrink: 0; }
+
+.btn {
+    display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center;
+    font-family: var(--sans); font-size: 15px; font-weight: 700; background: var(--accent); color: #000;
+    padding: 17px 40px; border-radius: 10px; border: none; cursor: pointer; margin-top: 10px; text-decoration: none;
+    transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), opacity 0.2s;
+}
+.btn:hover { transform: translateY(-2px); opacity: 0.92; }
+.btn:disabled { opacity: 0.5; cursor: wait; transform: none; }
+.backlink { display: inline-block; margin-top: 22px; font-size: 13px; color: var(--muted); background: none; border: none; cursor: pointer; font-family: var(--sans); }
+.backlink:hover { color: var(--text); }
+.form-err { font-size: 13px; color: var(--err); margin-top: 12px; display: none; line-height: 1.5; }
+.end-title { font-size: clamp(24px, 4vw, 32px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; line-height: 1.2; }
+.end-sub { font-size: 15px; font-weight: 300; color: #bdbab3; line-height: 1.7; margin-bottom: 18px; }
+.foot { margin-top: 36px; font-size: 12px; color: #4a4a46; text-align: center; }
+</style>
+</head>
+<body>
+<div id="glass-field" aria-hidden="true"></div>
+
+<img class="logo" src="/logo.png" alt="X Media Group" onerror="this.style.display='none'">
+<div class="eyebrow">Careers at X Media Group</div>
+
+<div class="card">
+    <svg class="pin-trace" aria-hidden="true"><rect class="pt-tail" pathLength="100" rx="20"/><rect class="pt-head" pathLength="100" rx="20"/></svg>
+    <div class="progress" id="progress" hidden></div>
+    <div id="stage"></div>
+</div>
+
+<div class="foot">&copy; 2026 X Media Group Ltd &middot; Worcestershire, UK</div>
+
+<script>
+const CONFIG = {
+    supabaseUrl: 'https://kcjbxtqeelvxupfjvveg.supabase.co',
+    supabaseKey: 'sb_publishable_iqQzXj_iLoNiCehy--0-yg_Psi7d6M4',
+    role: 'videographer',
+    contactEmail: 'hello@xmediagroup.co.uk'
+};
+
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+/* ── Steps ── */
+const STEPS = [
+  { title: 'First, the basics.', sub: 'So we know who you are and how to reach you.', fields: [
+      { id: 'name', label: 'Full name', type: 'text', req: true, ac: 'name' },
+      { id: 'email', label: 'Email address', type: 'email', req: true, ac: 'email' },
+      { id: 'phone', label: 'Mobile number', type: 'tel', req: true, ac: 'tel' },
+      { id: 'town', label: 'Where are you based? (town)', type: 'text', req: true, ac: 'address-level2', ph: 'e.g. Bromsgrove' }
+  ]},
+  { title: 'A few must-haves.', sub: 'We film on location across the West Midlands every week, so these are non-negotiable.', fields: [
+      { id: 'licence_car', label: 'Do you have a full UK driving licence and your own car?', type: 'radio', req: true, gate: 'Yes, both',
+        opts: ['Yes, both', 'Licence, but no car yet', 'No'] },
+      { id: 'right_to_work', label: 'Do you have the right to work in the UK?', type: 'radio', req: true, gate: 'Yes',
+        opts: ['Yes', 'No'] },
+      { id: 'weekends', label: 'The role is Monday to Friday, with the occasional weekend shoot. Does that work for you?', type: 'radio', req: true,
+        opts: ['Yes, no problem', 'Yes, with some notice', 'Weekends are difficult for me'] }
+  ]},
+  { title: 'Your situation.', sub: 'We are looking for someone to start in January.', fields: [
+      { id: 'situation', label: 'What are you doing at the moment?', type: 'select', req: true,
+        opts: ['Employed full-time', 'Employed part-time', 'Freelance or self-employed', 'Studying', 'Between jobs', 'Something else'] },
+      { id: 'start', label: 'When could you start?', type: 'radio', req: true,
+        opts: ['January works', 'I have a notice period that runs past January', 'Not sure yet'] },
+      { id: 'notice', label: 'Anything we should know about your notice or availability? (optional)', type: 'text' },
+      { id: 'salary', label: 'What are your salary expectations?', type: 'text', req: true, ph: 'e.g. £30,000 per year' }
+  ]},
+  { title: 'Your skills so far.', sub: 'Honestly, none of this is essential. We can teach the camera. We cannot teach character.', fields: [
+      { id: 'filming', label: 'How much filming have you done?', type: 'radio', req: true,
+        opts: ['None yet, but I want to learn', 'Some, for myself or friends', 'Some paid or professional work', 'I film professionally now'] },
+      { id: 'editing', label: 'Which editing software have you used? Tick any that apply.', type: 'multi',
+        opts: ['DaVinci Resolve', 'Premiere Pro', 'Final Cut Pro', 'CapCut', 'After Effects', 'None yet'] },
+      { id: 'kit', label: 'Do you have your own camera kit?', type: 'radio', req: true,
+        opts: ['Yes, a full setup', 'Some kit', 'No'] },
+      { id: 'kit_details', label: 'If you have kit, what is it? (optional)', type: 'text', ph: 'e.g. Sony A7 IV, Rode lav mics, gimbal' },
+      { id: 'portfolio', label: 'Link to any work, social profile or showreel (optional)', type: 'url', ph: 'https://' }
+  ]},
+  { title: 'What would the people who know you best say you are like to work with?', sub: 'Friends, colleagues, an old manager. Be honest, there is no right answer.', fields: [
+      { id: 'q_people_say', type: 'textarea', req: true, min: 40 } ]},
+  { title: 'Tell us about a time you went out of your way for someone.', sub: 'At work or outside of it. What happened, and why did you do it?', fields: [
+      { id: 'q_out_of_way', type: 'textarea', req: true, min: 40 } ]},
+  { title: 'Tell us about some feedback you did not enjoy hearing. What did you do with it?', sub: '', fields: [
+      { id: 'q_feedback', type: 'textarea', req: true, min: 40 } ]},
+  { title: 'Why this role, and why now?', sub: 'What is drawing you to X Media Group?', fields: [
+      { id: 'q_why', type: 'textarea', req: true, min: 40 } ]},
+  { title: 'Last thing.', sub: 'If you are shortlisted, we will ask you to send a short video of up to 60 seconds answering three questions. Nothing fancy, filmed on your phone is perfect.', fields: [
+      { id: 'video_ok', label: 'Yes, I am happy to send a short video if I am shortlisted.', type: 'check', req: true },
+      { id: 'heard', label: 'Where did you hear about this role? (optional)', type: 'text' }
+  ]}
+];
+
+const stage = document.getElementById('stage');
+const progress = document.getElementById('progress');
+const data = {};
+STEPS.forEach(() => { const s = document.createElement('span'); s.className = 'pseg'; progress.appendChild(s); });
+const segs = Array.from(progress.children);
+const setProgress = n => segs.forEach((s, i) => s.classList.toggle('on', i < n));
+const toTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+function showIntro() {
+    progress.hidden = true;
+    stage.innerHTML = `<div class="step jd">
+      <div class="jd-title">Videographer <span class="accent">and Editor.</span></div>
+      <div class="pills"><span class="pill">Full-time</span><span class="pill">West Midlands</span><span class="pill">Starting January</span><span class="pill">Monday to Friday</span></div>
+      <p class="lead">X Media Group makes video content and ads for businesses across the Midlands, from clinics and studios to trades and sports clubs. We are growing, and we are looking for someone to film with our clients, edit what we shoot and help us make work we are proud of.</p>
+      <p class="lead">We hire on character first. If you are genuine, kind, hard-working and people enjoy being around you, we can teach you the rest.</p>
+
+      <h3>What you will be doing</h3>
+      <ul>
+        <li>Filming with our clients on location, at their clinics, studios, sites and events</li>
+        <li>Making clients feel relaxed and confident in front of the camera</li>
+        <li>Editing short-form videos and ads for Instagram, TikTok and YouTube</li>
+        <li>Looking after kit and footage, so every shoot is organised and nothing gets lost</li>
+        <li>Being a friendly, reliable face of X Media Group for every client you meet</li>
+      </ul>
+
+      <h3>Must-haves</h3>
+      <ul>
+        <li>A full UK driving licence and your own car</li>
+        <li>Based in, or happy to travel across, the West Midlands</li>
+        <li>Available full-time, Monday to Friday, with the occasional weekend</li>
+        <li>Genuine, kind and easy to get on with</li>
+        <li>Reliable and hard-working, someone who does what they say they will</li>
+        <li>Open to feedback and keen to keep getting better</li>
+      </ul>
+
+      <h3>A big bonus, but we can teach it</h3>
+      <ul>
+        <li>Filming experience, on any camera</li>
+        <li>Editing experience in DaVinci Resolve, Premiere Pro, CapCut or similar</li>
+        <li>Your own camera kit (not essential, we provide kit for the right person)</li>
+        <li>An eye for what works on social media</li>
+      </ul>
+
+      <h3>Probably not for you if</h3>
+      <ul class="no">
+        <li>You are a clock-watcher</li>
+        <li>You would rather not be around new people every day</li>
+        <li>You find it hard to take feedback</li>
+      </ul>
+
+      <div class="note">The application takes about 10 minutes. Most of it is about you as a person, not your showreel. If you are shortlisted, we will ask for a short video of up to 60 seconds.</div>
+      <button class="btn" id="go" type="button">Start my application &rarr;</button>
+    </div>`;
+    stage.querySelector('#go').addEventListener('click', () => { showStep(0); toTop(); });
+}
+
+function fieldHtml(f) {
+    const v = data[f.id];
+    const req = f.req ? 'required' : '';
+    if (f.type === 'radio' || f.type === 'multi') {
+        const t = f.type === 'radio' ? 'radio' : 'checkbox';
+        const vals = Array.isArray(v) ? v : [v];
+        return `<div class="field"><label>${esc(f.label)}</label><div class="choices">${f.opts.map(o =>
+            `<label class="choice"><input type="${t}" name="${f.id}" value="${esc(o)}" ${vals.includes(o) ? 'checked' : ''}><span>${esc(o)}</span></label>`).join('')}</div></div>`;
+    }
+    if (f.type === 'select') {
+        return `<div class="field"><label for="${f.id}">${esc(f.label)}</label><select id="${f.id}" name="${f.id}" ${req}>
+            <option value="">Choose one</option>${f.opts.map(o => `<option ${v === o ? 'selected' : ''}>${esc(o)}</option>`).join('')}</select></div>`;
+    }
+    if (f.type === 'textarea') {
+        return `<div class="field"><textarea id="${f.id}" name="${f.id}" maxlength="3000" placeholder="Type your answer here" ${req}>${esc(v || '')}</textarea><div class="count" data-for="${f.id}"></div></div>`;
+    }
+    if (f.type === 'check') {
+        return `<div class="field"><label class="check"><input type="checkbox" name="${f.id}" ${v ? 'checked' : ''} ${req}><span>${esc(f.label)}</span></label></div>`;
+    }
+    return `<div class="field"><label for="${f.id}">${esc(f.label)}</label><input id="${f.id}" name="${f.id}" type="${f.type}" ${f.ac ? `autocomplete="${f.ac}"` : ''} placeholder="${esc(f.ph || '')}" value="${esc(v || '')}" ${req} maxlength="300"></div>`;
+}
+
+function readStep(form, step) {
+    for (const f of step.fields) {
+        if (f.type === 'radio') { const c = form.querySelector(`input[name="${f.id}"]:checked`); data[f.id] = c ? c.value : ''; }
+        else if (f.type === 'multi') data[f.id] = Array.from(form.querySelectorAll(`input[name="${f.id}"]:checked`)).map(i => i.value);
+        else if (f.type === 'check') data[f.id] = form.querySelector(`input[name="${f.id}"]`).checked;
+        else data[f.id] = form.querySelector(`[name="${f.id}"]`).value.trim();
+    }
+}
+
+function validate(step) {
+    for (const f of step.fields) {
+        const v = data[f.id];
+        if (f.req && (v === '' || v === false || v == null)) return f.type === 'check' ? 'Please tick the box to continue.' : 'Please answer every question marked as required.';
+        if (f.min && v.length < f.min) return 'Give us a little more detail here, a few sentences is perfect.';
+        if (f.type === 'email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return 'That email address does not look quite right.';
+    }
+    return '';
+}
+
+function showStep(i) {
+    if (i >= STEPS.length) return submit();
+    const step = STEPS[i];
+    progress.hidden = false; setProgress(i);
+    const big = step.fields.length === 1 && step.fields[0].type === 'textarea';
+    stage.innerHTML = `<div class="step">
+        <div class="qnum">${String(i + 1).padStart(2, '0')}</div>
+        <div class="qtitle">${esc(step.title)}</div>
+        ${step.sub ? `<p class="qsub">${esc(step.sub)}</p>` : '<div style="height:18px"></div>'}
+        <form id="f" novalidate>${step.fields.map(fieldHtml).join('')}
+            <button class="btn" type="submit">${i === STEPS.length - 1 ? 'Send my application' : 'Continue'} &rarr;</button>
+            <p class="form-err" id="ferr"></p>
+        </form>
+        <button class="backlink" id="back" type="button">&larr; Back</button>
+    </div>`;
+    const form = stage.querySelector('#f');
+    form.querySelectorAll('textarea').forEach(t => {
+        const c = form.querySelector(`.count[data-for="${t.id}"]`);
+        const upd = () => { c.textContent = t.value.length < 40 ? 'A few sentences is perfect' : t.value.length + ' / 3000'; };
+        t.addEventListener('input', upd); upd();
+    });
+    if (big) setTimeout(() => form.querySelector('textarea').focus({ preventScroll: true }), 300);
+    stage.querySelector('#back').addEventListener('click', () => { readStep(form, step); i === 0 ? showIntro() : showStep(i - 1); toTop(); });
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        readStep(form, step);
+        const err = validate(step);
+        const box = form.querySelector('#ferr');
+        if (err) { box.textContent = err; box.style.display = 'block'; return; }
+        const gated = step.fields.find(f => f.gate && data[f.id] !== f.gate);
+        if (gated) return showGate(i, gated);
+        showStep(i + 1); toTop();
+    });
+}
+
+function showGate(i, f) {
+    setProgress(0);
+    const msg = f.id === 'licence_car'
+        ? 'This role involves driving to client shoots across the West Midlands with kit every week, so a full UK licence and your own car are essential.'
+        : 'We are only able to consider applicants who already have the right to work in the UK for this role.';
+    stage.innerHTML = `<div class="step">
+        <div class="end-title">Thanks for being honest. <span class="accent">This one is not the right fit just yet.</span></div>
+        <p class="end-sub">${msg}</p>
+        <p class="end-sub">If that changes, we would love to hear from you. You can also follow along with what we make on Instagram.</p>
+        <a class="btn" href="https://www.instagram.com/maxrollinson/">Follow us on Instagram</a>
+        <button class="backlink" id="gb" type="button">&larr; Picked the wrong answer? Go back</button>
+    </div>`;
+    stage.querySelector('#gb').addEventListener('click', () => showStep(i));
+}
+
+async function submit() {
+    setProgress(STEPS.length);
+    stage.innerHTML = `<div class="step"><div class="end-title">Sending your application<span class="accent">...</span></div></div>`;
+    const { name, email, phone, town, ...answers } = data;
+    answers.submitted_from = location.href;
+    try {
+        const res = await fetch(CONFIG.supabaseUrl + '/rest/v1/job_applications', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', apikey: CONFIG.supabaseKey, Authorization: 'Bearer ' + CONFIG.supabaseKey, Prefer: 'return=minimal' },
+            body: JSON.stringify({ role: CONFIG.role, name, email, phone, town, answers })
+        });
+        if (!res.ok) throw new Error(res.status);
+        stage.innerHTML = `<div class="step">
+            <div class="end-title">Thanks, ${esc(name.split(' ')[0])}. <span class="accent">Application received.</span></div>
+            <p class="end-sub">We read every application ourselves. If you are shortlisted, we will be in touch by email with the three questions for your short video.</p>
+            <p class="end-sub">Whatever happens, thank you for taking the time to tell us about yourself.</p>
+            <a class="btn" href="https://xmediagroup.co.uk">Back to the website</a>
+        </div>`;
+    } catch (e) {
+        stage.innerHTML = `<div class="step">
+            <div class="end-title">Something went wrong <span class="accent">sending that.</span></div>
+            <p class="end-sub">Your answers are still here. Please try again, or email ${CONFIG.contactEmail} if it keeps happening.</p>
+            <button class="btn" id="retry" type="button">Try again</button>
+        </div>`;
+        stage.querySelector('#retry').addEventListener('click', submit);
+    }
+}
+
+/* floating glass X */
+(function () {
+    const field = document.getElementById('glass-field');
+    const mob = window.innerWidth < 700;
+    const ICONS = [
+        { x: 4, y: 10, w: 220, op: 0.26, blur: 0, rot: -14, dur: 15 },
+        { x: 84, y: 22, w: 150, op: 0.18, blur: 1.5, rot: 10, dur: 18 },
+        { x: 74, y: 70, w: 260, op: 0.22, blur: 0, rot: 8, dur: 17 },
+        { x: 10, y: 78, w: 130, op: 0.15, blur: 2.5, rot: -8, dur: 20 }
+    ];
+    (mob ? ICONS.filter((_, i) => i % 2 === 0) : ICONS).forEach(c => {
+        const el = document.createElement('div'); el.className = 'gx';
+        el.style.left = c.x + '%'; el.style.top = c.y + 'vh'; el.style.width = Math.round(c.w * (mob ? 0.5 : 1)) + 'px';
+        const img = document.createElement('img'); img.src = '/glass-x-cutout.png'; img.alt = '';
+        img.style.setProperty('--gx-op', mob ? Math.min(c.op, 0.16) : c.op);
+        img.style.setProperty('--gx-blur', c.blur + 'px');
+        img.style.setProperty('--gx-rot', c.rot + 'deg');
+        img.style.setProperty('--gx-float', c.dur + 's');
+        img.style.setProperty('--gx-delay', (-Math.random() * c.dur) + 's');
+        el.appendChild(img); field.appendChild(el);
+    });
+})();
+
+showIntro();
+</script>
+</body>
+</html>
